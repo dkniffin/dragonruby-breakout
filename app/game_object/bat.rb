@@ -3,20 +3,22 @@ class GameObject::Bat < GameObject::Base
 
   SPEED = 5
 
-  def tick(args)
-    super
+  def defaults
+    self.x = 576
+    self.y = 10
+  end
 
-    self.x ||= 576
-    self.y ||= 10
-
+  def input
     if inputs.left
-      self.x = self.x - SPEED
+      self.x = x - SPEED
     end
 
     if inputs.right
-      self.x = self.x + SPEED
+      self.x = x + SPEED
     end
+  end
 
-    args.outputs.sprites << [self.x, self.y, 128, 101, 'app/assets/breakout/Bats/bat_black.png']
+  def render
+    outputs.sprites << [x, y, 128, 101, 'app/assets/breakout/Bats/bat_black.png']
   end
 end

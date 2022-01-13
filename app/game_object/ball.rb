@@ -1,16 +1,12 @@
 class GameObject::Ball < GameObject::Base
   attr_accessor :x, :y
 
-  def tick(args)
-    self.x ||= 615
-    self.y ||= 200
+  def defaults
+    self.x = 615
+    self.y = 200
+  end
 
-    args.outputs.sprites << [
-      self.x,
-      self.y,
-      50,
-      50,
-      "app/assets/breakout/Balls/ball_silver.png"
-    ]
+  def render
+    outputs.sprites << [self.x, self.y, 50, 50, "app/assets/breakout/Balls/ball_silver.png"]
   end
 end
