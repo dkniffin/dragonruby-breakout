@@ -63,6 +63,23 @@ class Brick < Ticker
   end
 end
 
+class Ball < Ticker
+  attr_accessor :x, :y
+
+  def tick(args)
+    self.x ||= 615
+    self.y ||= 200
+
+    args.outputs.sprites << [
+      self.x,
+      self.y,
+      50,
+      50,
+      "app/assets/breakout/Balls/ball_silver.png"
+    ]
+  end
+end
+
 class Game < Ticker
   def tick(args)
     super
@@ -75,6 +92,7 @@ class Game < Ticker
       [Brick.new(0, 1), Brick.new(1, 1), Brick.new(2, 1), Brick.new(3, 1), Brick.new(4, 1), Brick.new(5, 1), Brick.new(6, 1), Brick.new(7, 1), Brick.new(8, 1), Brick.new(9, 1)],
       [Brick.new(0, 0), Brick.new(1, 0), Brick.new(2, 0), Brick.new(3, 0), Brick.new(4, 0), Brick.new(5, 0), Brick.new(6, 0), Brick.new(7, 0), Brick.new(8, 0), Brick.new(9, 0)]
     ]
+    state.objects.ball ||= Ball.new
 
     state.objects.bat.tick(args)
 
@@ -83,6 +101,8 @@ class Game < Ticker
         brick.tick(args)
       end
     end
+
+    state.objects.ball.tick(args)
   end
 end
 
