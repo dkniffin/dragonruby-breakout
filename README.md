@@ -9,3 +9,7 @@ Then, you can run:
 ```
 
 You should see a window open up with the game running inside it.
+
+## Credits
+
+Assets: https://unluckystudio.com/game-art-giveaway-6-breakout-sprites-pack/
