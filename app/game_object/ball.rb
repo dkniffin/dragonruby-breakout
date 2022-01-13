@@ -16,14 +16,12 @@ class GameObject::Ball < GameObject::Base
     move_for_velocity
     bounce
 
-    defaults
+    # defaults
   end
 
   def render
     outputs.sprites << [self.x, self.y, WIDTH, WIDTH, "app/assets/breakout/Balls/ball_silver.png"]
   end
-
-  private
 
   def move_for_velocity
     x_offset = Math.cos(self.angle * DEGREES_TO_RADIANS) * SPEED
@@ -34,15 +32,19 @@ class GameObject::Ball < GameObject::Base
   end
 
   def bounce
-    if right > grid.right
+    if right > grid.right || left < grid.left
+      handle_bounce_calculation("vertical")
+    elsif top > grid.top || bottom < grid.bottom
+      handle_bounce_calculation("horizontal")
+      # TODO: loss if bottom
+    end
+  end
+
+  def handle_bounce_calculation(surface_orientation)
+    if surface_orientation == "vertical"
       self.angle = 180 - self.angle
-    elsif top > grid.top
-      self.angle = 180 + (90 - (self.angle - 90))
-    elsif left < grid.left
-      self.angle = 270 + (90 - (self.angle - 180))
-    elsif bottom < grid.bottom
-      self.angle = 360 + (90 - (self.angle - 270))
-      # TODO: loss
+    elsif surface_orientation == "horizontal"
+      self.angle = 0 - self.angle
     end
   end
 
