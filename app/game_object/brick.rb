@@ -1,5 +1,5 @@
 class GameObject::Brick < GameObject::Base
-  attr_accessor :state, :brick_x, :brick_y, :asset
+  attr_accessor :brick_state, :brick_x, :brick_y, :asset
 
   BRICK_GRID_LEFT = 100
   BRICK_GRID_BOTTOM = 500
@@ -18,9 +18,7 @@ class GameObject::Brick < GameObject::Base
     self.h = 30
     self.x = BRICK_GRID_LEFT + (brick_x * self.w) + (brick_x * BRICK_SPACING_X)
     self.y = BRICK_GRID_BOTTOM + (brick_y * self.h) + (brick_y * BRICK_SPACING_Y)
-    self.state = "unbroken"
-    color = COLORS[brick_y]
-    self.asset = "app/assets/breakout/Bricks/brick_#{color}_small_cropped.png"
+    self.brick_state = "pristine"
   end
 
   def render
@@ -29,7 +27,26 @@ class GameObject::Brick < GameObject::Base
       self.y,
       self.w,
       self.h,
-      self.asset
+      asset
     ]
+  end
+
+  def asset
+    color = COLORS[brick_y]
+
+    if self.brick_state == "pristine"
+      "app/assets/breakout/Bricks/brick_#{color}_small_cropped.png"
+    elsif self.brick_state == "cracked"
+      "app/assets/breakout/Bricks/brick_#{color}_small_cracked_cropped.png"
+    end
+  end
+
+  def hit
+    if self.brick_state == "pristine"
+      self.brick_state = "cracked"
+    elsif self.brick_state == "cracked"
+      # destroy this brick
+      state.objects.bricks[self.brick_y][self.brick_x] = nil
+    end
   end
 end

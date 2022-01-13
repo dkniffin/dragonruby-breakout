@@ -11,14 +11,12 @@ class GameObject::Ball < GameObject::Base
     self.w = 50
     self.h = 50
 
-    self.angle = 23 # degrees
+    self.angle = 30 # degrees
   end
 
   def update
     move_for_velocity
     bounce
-
-    # defaults
   end
 
   def render
@@ -41,9 +39,10 @@ class GameObject::Ball < GameObject::Base
       # TODO: game over if bottom
     else
       # Bricks
-      state.objects.bricks.flatten.each do |brick|
+      state.objects.bricks.flatten.compact.each do |brick|
         if bouncing_off?(brick)
           handle_bounce_calculation(bounce_surface_orientation(brick))
+          brick.hit
           return
         end
       end
