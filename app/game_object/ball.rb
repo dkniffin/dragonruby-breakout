@@ -1,4 +1,4 @@
-class Ball < Ticker
+class GameObject::Ball < GameObject::Base
   attr_accessor :x, :y
 
   def tick(args)

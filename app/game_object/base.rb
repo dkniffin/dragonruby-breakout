@@ -1,4 +1,6 @@
-class Ticker
+module GameObject; end
+
+class GameObject::Base
   attr_accessor :grid, :inputs, :state, :outputs
 
   def tick(args)

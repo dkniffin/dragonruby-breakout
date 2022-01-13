@@ -1,4 +1,4 @@
-class Brick < Ticker
+class GameObject::Brick < GameObject::Base
   attr_accessor :state, :x, :y, :asset
 
   BRICK_GRID_LEFT = 100

@@ -1,9 +1,10 @@
-require "app/game_objects/ticker.rb"
+require "app/game_object/base.rb"
 
-require "app/game_objects/ball.rb"
-require "app/game_objects/bat.rb"
-require "app/game_objects/brick.rb"
+require "app/game_object/ball.rb"
+require "app/game_object/bat.rb"
+require "app/game_object/brick.rb"
 
-require "app/game_objects/game.rb"
+require "app/game.rb"
+
 # Must be last
-require "app/game_objects/tick.rb"
+require "app/tick.rb"

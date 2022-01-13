@@ -1,4 +1,4 @@
-class Bat < Ticker
+class GameObject::Bat < GameObject::Base
   attr_accessor :x, :y
 
   SPEED = 5
