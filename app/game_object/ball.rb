@@ -1,15 +1,17 @@
 DEGREES_TO_RADIANS = Math::PI / 180
 
 class GameObject::Ball < GameObject::Base
-  attr_accessor :x, :y, :angle
+  attr_accessor :angle
 
   SPEED = 5
-  WIDTH = 50
 
   def defaults
     self.x = 615
     self.y = 200
-    self.angle = 210 # degrees
+    self.w = 50
+    self.h = 50
+
+    self.angle = 23 # degrees
   end
 
   def update
@@ -20,7 +22,7 @@ class GameObject::Ball < GameObject::Base
   end
 
   def render
-    outputs.sprites << [self.x, self.y, WIDTH, WIDTH, "app/assets/breakout/Balls/ball_silver.png"]
+    outputs.sprites << [self.x, self.y, w, w, "app/assets/breakout/Balls/ball_silver_cropped.png"]
   end
 
   def move_for_velocity
@@ -36,7 +38,21 @@ class GameObject::Ball < GameObject::Base
       handle_bounce_calculation("vertical")
     elsif top > grid.top || bottom < grid.bottom
       handle_bounce_calculation("horizontal")
-      # TODO: loss if bottom
+      # TODO: game over if bottom
+    else
+      # Bricks
+      state.objects.bricks.flatten.each do |brick|
+        if bouncing_off?(brick)
+          handle_bounce_calculation(bounce_surface_orientation(brick))
+          return
+        end
+      end
+
+      # Paddle
+      if bouncing_off?(state.objects.paddle)
+        handle_bounce_calculation(bounce_surface_orientation(state.objects.paddle))
+        return
+      end
     end
   end
 
@@ -48,19 +64,16 @@ class GameObject::Ball < GameObject::Base
     end
   end
 
-  def left
-    x
+
+  def bouncing_off?(object)
+    geometry.intersect_rect?(self, object)
   end
 
-  def right
-    x + WIDTH
-  end
-
-  def bottom
-    y
-  end
-
-  def top
-    y + WIDTH
+  def bounce_surface_orientation(object)
+    if (object.left - right).abs() < SPEED || (object.right - left).abs() < SPEED
+      "vertical"
+    elsif (object.top - bottom).abs() < SPEED || (object.bottom - top).abs() < SPEED
+      "horizontal"
+    end
   end
 end

@@ -16,6 +16,10 @@ class GameObject::Base
     render
   end
 
+  ## ========================================================================
+  ## tick loop methods
+  ## ========================================================================
+
   def defaults
     # To be overriden.
     # Initializes the state of the object
@@ -34,5 +38,27 @@ class GameObject::Base
   def render
     # To be overriden
     # Handles rendering this object, based on it's current state
+  end
+
+  ## ========================================================================
+  ## spatial object methods
+  ## ========================================================================
+
+  attr_accessor :x, :y, :w, :h
+
+  def left
+    x
+  end
+
+  def right
+    x + w
+  end
+
+  def bottom
+    y
+  end
+
+  def top
+    y + h
   end
 end

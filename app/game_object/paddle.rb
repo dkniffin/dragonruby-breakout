@@ -1,11 +1,11 @@
 class GameObject::Paddle < GameObject::Base
-  attr_accessor :x, :y
-
   SPEED = 5
 
   def defaults
     self.x = 576
-    self.y = 10
+    self.y = 20
+    self.w = 120
+    self.h = 30
   end
 
   def input
@@ -19,6 +19,6 @@ class GameObject::Paddle < GameObject::Base
   end
 
   def render
-    outputs.sprites << [x, y, 128, 101, 'app/assets/breakout/Bats/bat_black.png']
+    outputs.sprites << [self.x, self.y, self.w, self.h, 'app/assets/breakout/Bats/bat_black_cropped.png']
   end
 end
