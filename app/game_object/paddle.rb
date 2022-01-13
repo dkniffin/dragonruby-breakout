@@ -1,4 +1,4 @@
-class GameObject::Bat < GameObject::Base
+class GameObject::Paddle < GameObject::Base
   attr_accessor :x, :y
 
   SPEED = 5
