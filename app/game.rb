@@ -4,6 +4,10 @@ class Game
       setup(args)
     end
 
+    if (args.inputs.keyboard.escape)
+      $gtk.reset
+    end
+
     args.state.objects.values.flatten.compact.each { |object| object.tick(args) }
   end
 
