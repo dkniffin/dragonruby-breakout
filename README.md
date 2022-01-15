@@ -1,3 +1,5 @@
+![](screenshot.png)
+
 ## Usage
 
 In order to run this, you must first download a licensed copy of [DragonRuby](https://dragonruby.org/toolkit/game).
