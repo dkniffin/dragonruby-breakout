@@ -4,7 +4,7 @@ class Game
       setup(args)
     end
 
-    if (args.inputs.keyboard.escape)
+    if (args.inputs.keyboard.key_up.escape)
       $gtk.reset
     end
 

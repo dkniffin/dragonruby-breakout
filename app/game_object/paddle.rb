@@ -1,5 +1,5 @@
 class GameObject::Paddle < GameObject::Base
-  SPEED = 5
+  SPEED = 10
 
   def defaults
     self.x = 576

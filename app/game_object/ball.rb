@@ -1,21 +1,35 @@
 DEGREES_TO_RADIANS = Math::PI / 180
 
 class GameObject::Ball < GameObject::Base
-  attr_accessor :angle
+  attr_accessor :angle, :moving
 
   SPEED = 5
 
+  MIN_STARTING_ANGLE = 30
+  MAX_STARTING_ANGLE = 120
+
   def defaults
+    self.moving = false
     self.x = 615
     self.y = 200
     self.w = 50
     self.h = 50
 
-    self.angle = 30 # degrees
+    self.angle = (MIN_STARTING_ANGLE..MAX_STARTING_ANGLE).to_a.sample # degrees
+  end
+
+  def input
+    if (args.inputs.keyboard.key_up.space)
+      self.moving = true
+      self.angle = (MIN_STARTING_ANGLE..MAX_STARTING_ANGLE).to_a.sample # degrees
+      puts rand()
+    end
   end
 
   def update
-    move_for_velocity
+    if (self.moving)
+      move_for_velocity
+    end
     bounce
   end
 
